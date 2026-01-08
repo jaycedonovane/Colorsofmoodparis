@@ -1,0 +1,246 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f8f9fa;
+    overflow-x: hidden;
+}
+
+#menu-toggle-btn {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1001;
+    background: rgba(30, 30, 30, 0.95);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: transform 0.2s;
+}
+
+#menu-toggle-btn:hover {
+    transform: scale(1.05);
+}
+
+#menu {
+    position: fixed;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    background: rgba(30, 30, 30, 0.95);
+    z-index: 1000;
+    transition: top 0.4s ease;
+    box-shadow: 0 0.2rem 1rem rgba(0,0,0,0.3);
+}
+
+#menu.visible {
+    top: 0;
+}
+
+#menu ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+#menu li {
+    text-align: center;
+    padding: 0.75rem 0;
+}
+
+#menu a {
+    color: white;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    font-weight: bold;
+    transition: opacity 0.3s;
+}
+
+#menu a:hover {
+    opacity: 0.7;
+}
+
+.hero-header {
+    position: relative;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0a1628;
+    overflow: hidden;
+    color: white;
+    text-align: center;
+}
+
+.header-content {
+    position: relative;
+    z-index: 100;
+    padding: 2rem;
+}
+
+.header-content h1 {
+    font-size: clamp(2rem, 7vw, 4rem);
+    margin-bottom: 1rem;
+}
+
+.header-content p {
+    font-size: clamp(1rem, 4vw, 1.5rem);
+}
+
+.wave-background-container {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    overflow: hidden;
+    transform: rotate(-45deg);
+}
+
+.wave-container {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in;
+}
+
+.wave-container.ready {
+    opacity: 0.9;
+}
+
+.wave {
+    position: absolute;
+    width: 100%;
+    height: 2.8%;
+    display: flex;
+    transform-style: preserve-3d;
+}
+
+.wave-segment {
+    flex: 1;
+    height: 100%;
+    background: linear-gradient(to bottom, #1e5a9e, #0d3b66);
+    border-radius: 40% 40% 0 0;
+    transform-origin: bottom center;
+    margin: 0 -0.1%;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.wave:nth-child(even) .wave-segment {
+    background: linear-gradient(to bottom, #2b7ec7, #1a4d7a);
+}
+
+.gallery-section {
+    padding: 3rem 1.5rem;
+}
+
+.gallery-section h2 {
+    text-align: center;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    margin-bottom: 2rem;
+    color: #0a1628;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.gallery-grid img:hover {
+    transform: scale(1.02);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+}
+
+#modal-img {
+    max-width: 90%;
+    max-height: 80vh;
+    border: 0.2rem solid white;
+    border-radius: 0.5rem;
+}
+
+.close {
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    color: white;
+    font-size: 3rem;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.close:hover {
+    opacity: 0.7;
+}
+
+.footer {
+    background: #0a1628;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 2rem;
+}
+
+.footer p {
+    font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+    #menu-toggle-btn {
+        display: none;
+    }
+    
+    #menu ul {
+        flex-direction: row;
+        padding: 1rem 0;
+    }
+    
+    #menu li {
+        padding: 0;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

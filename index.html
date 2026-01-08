@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>ColorofMoodParis</title>
+</head>
+<body>
+    <button id="menu-toggle-btn">Menu</button>
+    <nav id="menu">
+        <ul>
+            <li><a href="#colorofmoodparis">ColorofMoodParis</a></li>
+            <li><a href="#decouverte">Découverte</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#voyage">Voyage et Maison</a></li>
+            <li><a href="#developpement">Développement Durable</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <header id="colorofmoodparis" class="hero-header">
+        <div class="wave-background-container">
+            <div class="wave-container" id="waveContainer"></div>
+        </div>
+        <div class="header-content">
+            <h1>ColorofMoodParis</h1>
+            <p>As colors shine, you shine.</p>
+        </div>
+    </header>
+    
+    <main>
+        <section id="decouverte" class="gallery-section">
+            <h2>Découverte</h2>
+            <div class="gallery-grid">
+                <img src="gallery/decouverte1.jpg" alt="Découverte 1">
+                <img src="gallery/decouverte2.jpg" alt="Découverte 2">
+                <img src="gallery/decouverte3.jpg" alt="Découverte 3">
+            </div>
+        </section>
+
+        <section id="services" class="gallery-section">
+            <h2>Services</h2>
+            <div class="gallery-grid">
+                <img src="gallery/services1.png" alt="Service 1">
+                <img src="gallery/services2.png" alt="Service 2">
+                <img src="gallery/services3.png" alt="Service 3">
+            </div>
+        </section>
+
+        <section id="voyage" class="gallery-section">
+            <h2>Voyage et Maison</h2>
+            <div class="gallery-grid">
+                <img src="gallery/voyage1.png" alt="Voyage 1">
+                <img src="gallery/voyage2.png" alt="Voyage 2">
+                <img src="gallery/voyage3.png" alt="Voyage 3">
+            </div>
+        </section>
+
+        <section id="developpement" class="gallery-section">
+            <h2>Développement Durable</h2>
+            <div class="gallery-grid">
+                <img src="gallery/durable1.png" alt="Développement Durable 1">
+                <img src="gallery/durable2.png" alt="Développement Durable 2">
+                <img src="gallery/durable3.png" alt="Développement Durable 3">
+            </div>
+        </section>
+
+        <section id="contact" class="gallery-section">
+            <h2>Contact</h2>
+            <div class="gallery-grid">
+                <img src="gallery/contact1.png" alt="Contact 1">
+                <img src="gallery/contact2.png" alt="Contact 2">
+                <img src="gallery/contact3.png" alt="Contact 3">
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Mentions légales</p>
+    </footer>
+    
+    <div id="modal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content">
+            <img id="modal-img" src="" alt="Zoom">
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
