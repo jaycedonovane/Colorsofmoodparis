@@ -32,8 +32,11 @@ document.getElementById('menu')?.addEventListener('click', e => {
     }
 });
 
-document.querySelector('.gallery-grid')?.addEventListener('click', e => {
-    if (e.target.tagName === 'IMG') {
+document.addEventListener('click', e => {
+    if (
+        e.target.tagName === 'IMG' &&
+        e.target.closest('.gallery-grid, .services-grid, .voyage-grid, .maison-grid')
+    ) {
         modal.style.display = 'flex';
         modalImg.src = e.target.src;
     }
@@ -53,7 +56,7 @@ const imageObserver = new IntersectionObserver(entries => {
     });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.gallery-grid img').forEach(img => {
+document.querySelectorAll('.gallery-grid img, .services-grid img, .voyage-grid img, .maison-grid img').forEach(img => {
     imageObserver.observe(img);
 });
 
