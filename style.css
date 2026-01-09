@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -229,3 +230,4 @@ body {
         grid-template-columns: repeat(3, 1fr);
     }
 }
+
