@@ -1,4 +1,10 @@
 
+// FORCE LE RETOUR EN HAUT AU CHARGEMENT
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
 const menu = document.getElementById("menu");
 const menuBtn = document.getElementById("menu-toggle-btn");
 const container = document.getElementById('waveContainer');
@@ -10,13 +16,29 @@ menuBtn.onclick = () => menu.classList.toggle("visible");
 
 let ticking = false;
 window.addEventListener("scroll", () => {
-    if (!ticking && window.innerWidth >= 768) {
-        window.requestAnimationFrame(() => {
-            menu.classList.toggle("visible", window.scrollY > 100);
-            ticking = false;
-        });
-        ticking = true;
+    if (window.innerWidth >= 768) {
+        const threshold = window.innerHeight * 0.15;
+
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                if (window.scrollY > threshold) {
+                    menu.classList.add("visible");
+                } else {
+                    menu.classList.remove("visible");
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
     }
+});
+
+document.querySelectorAll("#menu a").forEach(link => {
+    link.onclick = () => {
+        if (window.innerWidth < 768) {
+            menu.classList.remove("visible");
+        }
+    };
 });
 
 document.querySelectorAll(".gallery-grid img").forEach(img => {
@@ -32,11 +54,12 @@ modal.onclick = (e) => {
 };
 
 window.addEventListener('load', () => {
+    window.scrollTo(0, 0); // Deuxième sécurité au chargement complet
     const headerContent = document.querySelector('.header-content');
     if (headerContent) {
         setTimeout(() => {
             headerContent.classList.add('show');
-        }, 1000);
+        }, 1500);
     }
 });
 
@@ -81,7 +104,7 @@ if (container) {
     
     let time = 0;
     function animate() {
-        time += 0.02;
+        time += 0.015;
         for (let i = 0; i < waves.length; i++) {
             const offset = i * 0.3;
             for (let j = 0; j < waves[i].length; j++) {
@@ -90,7 +113,7 @@ if (container) {
                 const scale = 1.8 + Math.sin(x * 4 + time + offset) * 0.4;
                 
                 waves[i][j].style.transform = `rotateX(${rot}deg) scaleY(${scale})`;
-                waves[i][j].style.filter = `brightness(${1.1 + rot / 50})`;
+                waves[i][j].style.filter = `brightness(${1 + rot / 60})`;
             }
         }
         requestAnimationFrame(animate);
