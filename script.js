@@ -1,73 +1,54 @@
 
-// FORCE LE RETOUR EN HAUT AU CHARGEMENT
-if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
-}
-window.scrollTo(0, 0);
-
-const menu = document.getElementById("menu");
-const menuBtn = document.getElementById("menu-toggle-btn");
-const container = document.getElementById('waveContainer');
-const modal = document.getElementById("modal");
-const modalImg = document.getElementById("modal-img");
-const closeBtn = document.querySelector(".close");
-
-menuBtn.onclick = () => menu.classList.toggle("visible");
-
-let ticking = false;
-window.addEventListener("scroll", () => {
-    if (window.innerWidth >= 768) {
-        const threshold = window.innerHeight * 0.15;
-
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                if (window.scrollY > threshold) {
-                    menu.classList.add("visible");
-                } else {
-                    menu.classList.remove("visible");
-                }
-                ticking = false;
-            });
-            ticking = true;
-        }
-    }
-});
-
-document.querySelectorAll("#menu a").forEach(link => {
-    link.onclick = () => {
-        if (window.innerWidth < 768) {
-            menu.classList.remove("visible");
-        }
-    };
-});
-
-document.querySelectorAll(".gallery-grid img").forEach(img => {
-    img.onclick = () => {
-        modal.style.display = "flex";
-        modalImg.src = img.src;
-    };
-});
-
-closeBtn.onclick = () => modal.style.display = "none";
-modal.onclick = (e) => {
-    if (e.target === modal) modal.style.display = "none";
-};
-
 window.addEventListener('load', () => {
-    window.scrollTo(0, 0); // Deuxième sécurité au chargement complet
+    window.scrollTo(0, 0);
     const headerContent = document.querySelector('.header-content');
     if (headerContent) {
-        setTimeout(() => {
-            headerContent.classList.add('show');
-        }, 1500);
+        setTimeout(() => headerContent.classList.add('show'), 1500);
     }
 });
 
-const imageObserver = new IntersectionObserver((entries, observer) => {
+const menu = document.getElementById('menu');
+const menuBtn = document.getElementById('menu-toggle-btn');
+const modal = document.getElementById('modal');
+const modalImg = document.getElementById('modal-img');
+const closeBtn = document.querySelector('.close');
+const container = document.getElementById('waveContainer');
+
+menuBtn?.addEventListener('click', () => {
+    menu.classList.toggle('visible');
+});
+
+window.addEventListener('scroll', () => {
+    if (window.innerWidth < 768) return;
+    menu.classList.toggle(
+        'visible',
+        window.scrollY > window.innerHeight * 0.15
+    );
+});
+
+document.getElementById('menu')?.addEventListener('click', e => {
+    if (e.target.tagName === 'A' && window.innerWidth < 768) {
+        menu.classList.remove('visible');
+    }
+});
+
+document.querySelector('.gallery-grid')?.addEventListener('click', e => {
+    if (e.target.tagName === 'IMG') {
+        modal.style.display = 'flex';
+        modalImg.src = e.target.src;
+    }
+});
+
+closeBtn?.addEventListener('click', () => modal.style.display = 'none');
+modal?.addEventListener('click', e => {
+    if (e.target === modal) modal.style.display = 'none';
+});
+
+const imageObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('loaded');
-            observer.unobserve(entry.target);
+            imageObserver.unobserve(entry.target);
         }
     });
 }, { threshold: 0.1 });
@@ -77,17 +58,16 @@ document.querySelectorAll('.gallery-grid img').forEach(img => {
 });
 
 if (container) {
-    const NUM_WAVES = 60; 
+    const NUM_WAVES = 60;
     const SEGMENTS = 20;
     const waves = [];
-    
     const fragment = document.createDocumentFragment();
+
     for (let i = 0; i < NUM_WAVES; i++) {
         const wave = document.createElement('div');
         wave.className = 'wave';
-        wave.style.top = `${(i * 100) / NUM_WAVES}%`; 
-        wave.style.zIndex = i;
-        
+        wave.style.top = `${(i * 100) / NUM_WAVES}%`;
+
         const segs = [];
         for (let j = 0; j < SEGMENTS; j++) {
             const seg = document.createElement('div');
@@ -98,10 +78,10 @@ if (container) {
         fragment.appendChild(wave);
         waves.push(segs);
     }
+
     container.appendChild(fragment);
-    
     requestAnimationFrame(() => container.classList.add('ready'));
-    
+
     let time = 0;
     function animate() {
         time += 0.015;
@@ -111,13 +91,12 @@ if (container) {
                 const x = j / SEGMENTS;
                 const rot = Math.sin(x * 6 + time + offset) * 15;
                 const scale = 1.8 + Math.sin(x * 4 + time + offset) * 0.4;
-                
                 waves[i][j].style.transform = `rotateX(${rot}deg) scaleY(${scale})`;
-                waves[i][j].style.filter = `brightness(${1 + rot / 60})`;
             }
         }
         requestAnimationFrame(animate);
     }
     animate();
 }
+
 
